@@ -1,0 +1,23 @@
+{
+  "name": "jean-type-check",
+  "version": "0.0.3",
+  "description": "Provides functionality for type checking",
+  "main": "TypeCheck.js",
+  "scripts": {
+    "test": "open spec/spec-runner.html in browser"
+  },
+  "keywords": [
+    "type check",
+    "type",
+    "check"
+  ],
+  "author": "Jeremias Andris",
+  "license": "MIT",
+  "dependencies": {
+    "almond": "^0.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/je-an/jean-type-check.git"
+  }
+}
