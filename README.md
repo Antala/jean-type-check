@@ -47,13 +47,13 @@ Checks if passed element type is boolean
 
 ### isNumber(o) 
 
-Checks if passed element type is boolean
+Checks if passed element type is number
 
 **Parameters**
 - **o**: `Any` - element to be checked
 
 **Returns**
--  `Boolean` - True, if element type is boolean, false otherwise
+-  `Boolean` - True, if element type is number, false otherwise
 
 
 ### isObject(o) 
@@ -109,7 +109,7 @@ Checks if all elements in this array have the same type
                        to the typeof operator
 
 **Returns**
-- `Boolean` -  True, if element is defined, false otherwise
+- `Boolean` -  True, if all elements have the same type, false otherwise
 
 ## Tests
 
