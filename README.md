@@ -12,7 +12,7 @@ require(["path/to/TypeCheck"], function(TypeCheck){
     TypeCheck.isObject({ name: "jean" }); // true
     TypeCheck.isEmptyObject({}); // true
     TypeCheck.isFunction(function(){}); // true
-    TypeCheck.isDefined(undefined); //true
+    TypeCheck.isDefined(undefined); //false
     TypeCheck.isArrayTypeOf(["1","2", "3"]);
 });
 ```
