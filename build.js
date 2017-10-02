@@ -1,12 +1,13 @@
 ({
     baseUrl: '.',
-    out: 'dist/TypeCheck.js',
-    optimize: 'none',
-    include: ["node_modules/almond/almond", "src/TypeCheck"],
+    out: 'dist/jean-type-check.js',
+    optimize: 'uglify2',
+    name: "node_modules/jean-amd/dist/jean-amd",
+    include: ["src/TypeCheck"],
     wrap: {
         start: 
         "(function (root, factory) { \n" +
-        " \t if (typeof define === 'function' && define.amd) { \n" +
+        "\t if (typeof define === 'function' && define.amd) { \n" +
         "\t \t define([], factory); \n" +
         "\t} else { \n" +
         "\t \troot.TypeCheck = root.TypeCheck || {}; \n" +
