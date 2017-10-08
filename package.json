@@ -1,6 +1,6 @@
 {
   "name": "jean-type-check",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "Provides functionality for type checking",
   "main": "jean-type-check.js",
   "scripts": {
@@ -14,7 +14,7 @@
   "author": "Jeremias Andris",
   "license": "MIT",
   "dependencies": {
-    "jean-amd": "0.0.5"
+    "jean-amd": "1.0.1"
   },
   "repository": {
     "type": "git",
