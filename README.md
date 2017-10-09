@@ -2,21 +2,32 @@
 
 Provides functionality for type checking 
 
-## Code Example
+## Support
+Supports both CommonJS and AMD eco system. If there is no loader, TypeCheck is registered as a browser variable.
 
+## Code Example
+- Use it as browser variable 
+```js
+TypeCheck.isString(""); // true
+TypeCheck.isBoolean(true); // true
+TypeCheck.isNumber(1); // true
+TypeCheck.isObject({ name: "jean" }); // true
+TypeCheck.isEmptyObject({}); // true
+TypeCheck.isFunction(function(){}); // true
+TypeCheck.isDefined(undefined); //false
+TypeCheck.isArrayTypeOf(["1","2", "3"]);
+``` 
+
+- Use it with require.js 
 ```javascript
 require(["path/to/TypeCheck"], function(TypeCheck){
-    TypeCheck.isString(""); // true
-    TypeCheck.isBoolean(true); // true
-    TypeCheck.isNumber(1); // true
-    TypeCheck.isObject({ name: "jean" }); // true
-    TypeCheck.isEmptyObject({}); // true
-    TypeCheck.isFunction(function(){}); // true
-    TypeCheck.isDefined(undefined); //false
-    TypeCheck.isArrayTypeOf(["1","2", "3"]);
+    // Work with TypeCheck
 });
 ```
-
+- Use it with node.js
+```js
+var TypeCheck = require("jean-type-check");
+``` 
 ## Installation
 
 `npm install jean-type-check --save --legacy-bundling`
