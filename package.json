@@ -1,8 +1,8 @@
 {
   "name": "jean-type-check",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Provides functionality for type checking",
-  "main": "jean-type-check.js",
+  "main": "dist/jean-type-check.js",
   "scripts": {
     "test": "open spec/spec-runner.html in browser"
   },
