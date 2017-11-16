@@ -1,6 +1,6 @@
 {
   "name": "jean-type-check",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Provides functionality for type checking",
   "main": "dist/jean-type-check.js",
   "scripts": {

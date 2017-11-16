@@ -15,7 +15,8 @@ TypeCheck.isObject({ name: "jean" }); // true
 TypeCheck.isEmptyObject({}); // true
 TypeCheck.isFunction(function(){}); // true
 TypeCheck.isDefined(undefined); //false
-TypeCheck.isArrayTypeOf(["1","2", "3"]);
+TypeCheck.isArray([]); // true
+TypeCheck.isArrayTypeOf(["1","2", "3"], "number"); // true
 ``` 
 
 - Use it with require.js 
