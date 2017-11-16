@@ -1,7 +1,7 @@
 define([], function () {
     return {
         /**
-         * Checks if passed element type is string
+         * Checks if provided element type is string
          * @public
          * @memberof TypeCheck
          * @param {Any} o - element to be checked
@@ -11,7 +11,7 @@ define([], function () {
             return (typeof o === "string") ? true : false;
         },
         /** 
-         * Checks if passed element type is boolean
+         * Checks if provided element type is boolean
          * @public
          * @memberof TypeCheck
          * @param {Any} o - element to be checked
@@ -21,7 +21,7 @@ define([], function () {
             return (typeof o === "boolean") ? true : false;
         },
         /**
-         * Checks if passed element type is boolean
+         * Checks if provided element type is boolean
          * @public
          * @memberof TypeCheck
          * @param {Any} o - element to be checked
@@ -31,7 +31,7 @@ define([], function () {
             return (typeof o === "number") ? true : false;
         },
         /**
-         * Checks if passed element is an object
+         * Checks if provided element is an object
          * @public
          * @memberof TypeCheck
          * @param {Any} o - element to be checked
@@ -54,7 +54,7 @@ define([], function () {
             return isObject;
         },
         /**
-         * Checks if passed element is an empty object
+         * Checks if provided element is an empty object
          * @public
          * @memberof TypeCheck
          * @param {Any} o - element to be checked
@@ -75,7 +75,7 @@ define([], function () {
             return isEmpty;
         },
         /**
-        * Checks if passed element is a function
+        * Checks if provided element is a function
         * @public
         * @memberof TypeCheck
         * @param {Any} o - element to be checked
@@ -85,7 +85,7 @@ define([], function () {
             return (typeof o === "function") ? true : false;
         },
         /**
-         * Checks if passed element is defined
+         * Checks if provided element is defined
          * @public
          * @memberof TypeCheck
          * @param {Any} o - element to be checked
@@ -93,6 +93,15 @@ define([], function () {
          */
         isDefined: function (o) {
             return (o !== undefined && o != null);
+        },
+        /**
+         * Checks if provided element is an array
+         * @public 
+         * @memberOf TypeCheck
+         * @param {Any} o - element to be checked
+         */
+        isArray: function(o){
+            return Array.isArray(o);
         },
         /**
          * Checks if all elements in this array have the same type

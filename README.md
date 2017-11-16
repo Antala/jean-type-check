@@ -36,7 +36,7 @@ var TypeCheck = require("jean-type-check");
 
 ### isString(o) 
 
-Checks if passed element type is string
+Checks if provided element type is string
 
 **Parameters**
  - **o**: `Any` - element to be checked
@@ -47,7 +47,7 @@ Checks if passed element type is string
 
 ### isBoolean(o) 
 
-Checks if passed element type is boolean
+Checks if provided element type is boolean
 
 **Parameters**
 - **o**: `Any` - element to be checked
@@ -58,7 +58,7 @@ Checks if passed element type is boolean
 
 ### isNumber(o) 
 
-Checks if passed element type is number
+Checks if provided element type is number
 
 **Parameters**
 - **o**: `Any` - element to be checked
@@ -69,7 +69,7 @@ Checks if passed element type is number
 
 ### isObject(o) 
 
-Checks if passed element is an object
+Checks if provided element is an object
 
 **Parameters**
 - **o**: `Any` - element to be checked
@@ -80,7 +80,7 @@ Checks if passed element is an object
 
 ### isEmptyObject(o) 
 
-Checks if passed element is an empty object
+Checks if provided element is an empty object
 
 **Parameters**
 - **o**: `Any` - element to be checked
@@ -91,7 +91,7 @@ Checks if passed element is an empty object
 
 ### isFunction(o) 
 
-Checks if passed element is a function
+Checks if provided element is a function
 
 **Parameters**
 - **o**: `Any` - element to be checked
@@ -101,13 +101,24 @@ Checks if passed element is a function
 
 ### isDefined(o) 
 
-Checks if passed element is defined
+Checks if provided element is defined
 
 **Parameters**
 - **o**: `Any` - element to be checked
 
 **Returns**
 - `Boolean` - True, if element is defined, false otherwise
+
+
+### isArray(o) 
+
+Checks if provided element is an array
+
+**Parameters**
+- **o**: `Any` - element to be checked
+
+**Returns**
+- `Boolean` - True, if element is an array, false otherwise
 
 
 ### isArrayTypeOf(array, type) 
