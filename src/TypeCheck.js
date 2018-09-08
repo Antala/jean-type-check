@@ -100,7 +100,7 @@ define([], function () {
          * @memberOf TypeCheck
          * @param {Any} o - element to be checked
          */
-        isArray: function(o){
+        isArray: function (o) {
             return Array.isArray(o);
         },
         /**
@@ -133,6 +133,22 @@ define([], function () {
                 }
             }
             return isTypeOf;
+        },
+        /**
+         * Checks if child is an instance of parent
+         * @public
+         * @memberof TypeCheck
+         * @param {Object} child - the object which shall be checked
+         * @param {Function} parent - the function which shall be the constructor
+         */
+        isInstanceOf: function (child, parent) {
+            if (!this.isObject(child)) {
+                throw new TypeError("child is not an object");
+            }
+            if (!this.isFunction(parent)) {
+                throw new TypeError("parent is not a function");
+            }
+            return child instanceof parent;
         }
     };
 });

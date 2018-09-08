@@ -273,41 +273,41 @@ define([
         });
         describe("TypeCheck.isArray", function () {
             var testString = "test-string",
-            testBoolean = true,
-            testNumber = 1,
-            testObject = {},
-            objWithKeys = { name: "name" },
-            testArray = [],
-            testFunction = function () { },
-            testNull = null,
-            testUndefined;
-        it("Responds with true, if provided element is an array", function () {
-            expect(TypeCheck.isArray(testArray)).toBe(true);
-        });
-        it("Responds with false, if provided element is a number", function () {
-            expect(TypeCheck.isArray(testNumber)).toBe(false);
-        });
-        it("Responds with false, if provided element is a boolean", function () {
-            expect(TypeCheck.isArray(testBoolean)).toBe(false);
-        });
-        it("Responds with false, if provided element is a string", function () {
-            expect(TypeCheck.isArray(testString)).toBe(false);
-        });
-        it("Responds with false, if provided element is an object", function () {
-            expect(TypeCheck.isArray(testObject)).toBe(false);
-        });
-        it("Responds with false, if provided element is null", function () {
-            expect(TypeCheck.isArray(testNull)).toBe(false);
-        });
-        it("Responds with false, if provided element is a function", function () {
-            expect(TypeCheck.isArray(testFunction)).toBe(false);
-        });
-        it("Responds with false, if provided element is undefined", function () {
-            expect(TypeCheck.isArray(testUndefined)).toBe(false);
-        });
-        it("Responds with false, if nothing is provided", function () {
-            expect(TypeCheck.isArray()).toBe(false);
-        });
+                testBoolean = true,
+                testNumber = 1,
+                testObject = {},
+                objWithKeys = { name: "name" },
+                testArray = [],
+                testFunction = function () { },
+                testNull = null,
+                testUndefined;
+            it("Responds with true, if provided element is an array", function () {
+                expect(TypeCheck.isArray(testArray)).toBe(true);
+            });
+            it("Responds with false, if provided element is a number", function () {
+                expect(TypeCheck.isArray(testNumber)).toBe(false);
+            });
+            it("Responds with false, if provided element is a boolean", function () {
+                expect(TypeCheck.isArray(testBoolean)).toBe(false);
+            });
+            it("Responds with false, if provided element is a string", function () {
+                expect(TypeCheck.isArray(testString)).toBe(false);
+            });
+            it("Responds with false, if provided element is an object", function () {
+                expect(TypeCheck.isArray(testObject)).toBe(false);
+            });
+            it("Responds with false, if provided element is null", function () {
+                expect(TypeCheck.isArray(testNull)).toBe(false);
+            });
+            it("Responds with false, if provided element is a function", function () {
+                expect(TypeCheck.isArray(testFunction)).toBe(false);
+            });
+            it("Responds with false, if provided element is undefined", function () {
+                expect(TypeCheck.isArray(testUndefined)).toBe(false);
+            });
+            it("Responds with false, if nothing is provided", function () {
+                expect(TypeCheck.isArray()).toBe(false);
+            });
         });
         describe("TypeCheck.isArrayTypeOf", function () {
             var stringArray = ["a", "b", "c"];
@@ -350,6 +350,29 @@ define([
                     TypeCheck.isArrayTypeOf({}, "string");
                 } catch (e) {
                     expect(e instanceof Error).toBe(true);
+                }
+            });
+        });
+        describe("TypeCheck.isInstanceOf", function () {
+            function A(name) { this.name = name; };
+            it("Responds with true, if the provided object is an instance of the provided function", function () {
+                expect(TypeCheck.isInstanceOf(new A(), A)).toBe(true);
+            });
+            it("Responds with false, if the provided object is an instance of the provided function", function () {
+                expect(TypeCheck.isInstanceOf({}, A)).toBe(false);
+            });
+            it("Throws exception, if there is no object provided", function () {
+                try {
+                    TypeCheck.isInstanceOf(undefined, A);
+                } catch (e) {
+                    expect(e instanceof TypeError).toBe(true);
+                }
+            });
+            it("Throws exception, if there is no function provided", function () {
+                try {
+                    TypeCheck.isInstanceOf({}, undefined);
+                } catch (e) {
+                    expect(e instanceof TypeError).toBe(true);
                 }
             });
         });
