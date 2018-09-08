@@ -138,8 +138,9 @@ define([], function () {
          * Checks if child is an instance of parent
          * @public
          * @memberof TypeCheck
-         * @param {Object} child - the object which shall be checked
-         * @param {Function} parent - the function which shall be the constructor
+         * @param {Object} child - The object which shall be checked
+         * @param {Function} parent - The function which shall be the constructor
+         * @returns {Boolean} - True if child is an instance of parent, false otherwise
          */
         isInstanceOf: function (child, parent) {
             if (!this.isObject(child)) {

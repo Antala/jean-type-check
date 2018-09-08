@@ -17,6 +17,7 @@ TypeCheck.isFunction(function(){}); // true
 TypeCheck.isDefined(undefined); //false
 TypeCheck.isArray([]); // true
 TypeCheck.isArrayTypeOf(["1","2", "3"], "number"); // true
+TypeCheck.isInstanceOf(new A(), A); // true
 ``` 
 
 - Use it with require.js 
@@ -133,6 +134,17 @@ Checks if all elements in this array have the same type
 
 **Returns**
 - `Boolean` -  True, if all elements have the same type, false otherwise
+
+### isInstanceOf(child, parent) 
+
+Checks if child is an instance of parent
+
+**Parameters**
+- **child**: `Object`, The object which shall be checked
+- **parent**: `Function`, The function which shall be the constructor
+
+**Returns**
+- `Boolean` -  True, if child is an instance of parent, false otherwise
 
 ## Tests
 
