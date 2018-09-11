@@ -146,7 +146,7 @@ Checks if all objects within array have the same instance
 - **constructor**: `Function`, The constructor function
 
 **Returns**
-- `Boolean` -  True, if all elements have the same type, false otherwise
+- `Boolean` -  True, if all elements have the same instance, false otherwise
 
 ### TypeCheck.isInstanceOf(child, parent) 
 
