@@ -354,6 +354,34 @@ define([
                 }
             });
         });
+        describe("TypeCheck.areObjectsInstanceOf", function () {
+            function A() { }
+            function B() { }
+            var aArray = [new A(), new A(), new A()];
+            var bArray = [new A(), new A(), new B()];
+            var cArray = [new A(), new A(), 3];
+            it("Responds with true, if provided objects are instance of A", function () {
+                expect(TypeCheck.areObjectsInstanceOf(aArray, A)).toBe(true);
+            });
+            it("Responds with false, if a provided object is not an instance of A", function () {
+                expect(TypeCheck.areObjectsInstanceOf(bArray, A)).toBe(false);
+                expect(TypeCheck.areObjectsInstanceOf(cArray, A)).toBe(false);
+            });
+            it("Throws exception, if no array is provided", function () {
+                try {
+                    TypeCheck.areObjectsInstanceOf(undefined, A);
+                } catch (e) {
+                    expect(e instanceof TypeError).toBe(true);
+                }
+            });
+            it("Throws exception, if no constructor is provided", function () {
+                try {
+                    TypeCheck.areObjectsInstanceOf(aArray, 123);
+                } catch (e) {
+                    expect(e instanceof TypeError).toBe(true);
+                }
+            });
+        });
         describe("TypeCheck.isInstanceOf", function () {
             function A(name) { this.name = name; }
             it("Responds with true, if the provided object is an instance of the provided function", function () {

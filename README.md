@@ -8,6 +8,7 @@ Supports both CommonJS and AMD eco system. If there is no loader, TypeCheck is r
 ## Code Example
 - Use it as browser variable 
 ```js
+function A(){ }
 TypeCheck.isString(""); // true
 TypeCheck.isBoolean(true); // true
 TypeCheck.isNumber(1); // true
@@ -17,6 +18,7 @@ TypeCheck.isFunction(function(){}); // true
 TypeCheck.isDefined(undefined); //false
 TypeCheck.isArray([]); // true
 TypeCheck.isArrayTypeOf(["1","2", "3"], "number"); // true
+TypeCheck.areObjectsInstanceOf([new A(), new A(), new A()], A); // true
 TypeCheck.isInstanceOf(new A(), A); // true
 TypeCheck.isEnumValue("test", { TEST: "test" }); // true
 ``` 
@@ -37,7 +39,7 @@ var TypeCheck = require("jean-type-check");
 
 ## API Reference
 
-### isString(o) 
+### TypeCheck.isString(o) 
 
 Checks if provided element type is string
 
@@ -48,7 +50,7 @@ Checks if provided element type is string
 - `Boolean` - True, if element type is string, false otherwise
 
 
-### isBoolean(o) 
+### TypeCheck.isBoolean(o) 
 
 Checks if provided element type is boolean
 
@@ -59,7 +61,7 @@ Checks if provided element type is boolean
 - `Boolean` - True, if element type is boolean, false otherwise
 
 
-### isNumber(o) 
+### TypeCheck.isNumber(o) 
 
 Checks if provided element type is number
 
@@ -70,7 +72,7 @@ Checks if provided element type is number
 -  `Boolean` - True, if element type is number, false otherwise
 
 
-### isObject(o) 
+### TypeCheck.isObject(o) 
 
 Checks if provided element is an object
 
@@ -81,7 +83,7 @@ Checks if provided element is an object
  - `Boolean` - True, if element is object, false otherwise
 
 
-### isEmptyObject(o) 
+### TypeCheck.isEmptyObject(o) 
 
 Checks if provided element is an empty object
 
@@ -92,7 +94,7 @@ Checks if provided element is an empty object
 - `Boolean` - True, if element is empty, false otherwise
 
 
-### isFunction(o) 
+### TypeCheck.isFunction(o) 
 
 Checks if provided element is a function
 
@@ -102,7 +104,7 @@ Checks if provided element is a function
 - **Returns** `Boolean` - True, if element is a function, false otherwise
 
 
-### isDefined(o) 
+### TypeCheck.isDefined(o) 
 
 Checks if provided element is defined
 
@@ -113,7 +115,7 @@ Checks if provided element is defined
 - `Boolean` - True, if element is defined, false otherwise
 
 
-### isArray(o) 
+### TypeCheck.isArray(o) 
 
 Checks if provided element is an array
 
@@ -123,8 +125,7 @@ Checks if provided element is an array
 **Returns**
 - `Boolean` - True, if element is an array, false otherwise
 
-
-### isArrayTypeOf(array, type) 
+### TypeCheck.isArrayTypeOf(array, type) 
 
 Checks if all elements in this array have the same type
 
@@ -136,7 +137,18 @@ Checks if all elements in this array have the same type
 **Returns**
 - `Boolean` -  True, if all elements have the same type, false otherwise
 
-### isInstanceOf(child, parent) 
+### TypeCheck.areObjectsInstanceOf(array, constructor) 
+
+Checks if all objects within array have the same instance
+
+**Parameters**
+- **array**: `Object[]`, The array which objects shall be checked
+- **constructor**: `Function`, The constructor function
+
+**Returns**
+- `Boolean` -  True, if all elements have the same type, false otherwise
+
+### TypeCheck.isInstanceOf(child, parent) 
 
 Checks if child is an instance of parent
 
@@ -147,7 +159,7 @@ Checks if child is an instance of parent
 **Returns**
 - `Boolean` -  True, if child is an instance of parent, false otherwise
 
-### isEnumValue(value, o) 
+### TypeCheck.isEnumValue(value, o) 
 
 Checks if the provided value is a value of the provided object which is used as an enum
 

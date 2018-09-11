@@ -135,9 +135,38 @@ define([], function () {
             return isTypeOf;
         },
         /**
+         * Checks if all objects within array have the same instance
+         * @public
+         * @memberof TypeCheck
+         * @throws {TypeError} - If array is not an array
+         * @throws {TypeError} - If constructor is not a function
+         * @param {Object[]} array - The array which objects shall be checked
+         * @param {Function} constructor - the constructor function
+         * @returns {Boolean} - True if all elements have the same instance, false otherwise
+         */
+        areObjectsInstanceOf: function (array, constructor) {
+            if (!this.isArray(array)) {
+                throw new TypeError("array is not an array");
+            }
+            if (!this.isFunction(constructor)) {
+                throw new TypeError("constructor is not a function");
+            }
+            var i, o, length = array.length, result = true;
+            for (i = 0; i < length; i++) {
+                o = array[i];
+                if (!this.isObject(o) || !this.isInstanceOf(o, constructor)) {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        },
+        /**
          * Checks if child is an instance of parent
          * @public
          * @memberof TypeCheck
+         * @throws {TypeError} - If child is not an object
+         * @throws {TypeError} - If parent is not a function
          * @param {Object} child - The object which shall be checked
          * @param {Function} parent - The function which shall be the constructor
          * @returns {Boolean} - True if child is an instance of parent, false otherwise
@@ -153,6 +182,8 @@ define([], function () {
         },
         /**
          * Checks if the provided value is a value of the provided object which is used as an enum
+         * @throws {TypeError} - If value is not a string or a number
+         * @throws {TypeError} - If o is not an object
          * @param {String|Number} value - the value
          * @param {Object} o - the object which shall be checked
          * @returns {Boolean} - True if value is part of o, false otherwise
