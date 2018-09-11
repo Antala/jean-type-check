@@ -1,3 +1,4 @@
+// jscs:disable
 define([
     "TypeCheck"
 ], function (TypeCheck) {
@@ -354,7 +355,7 @@ define([
             });
         });
         describe("TypeCheck.isInstanceOf", function () {
-            function A(name) { this.name = name; };
+            function A(name) { this.name = name; }
             it("Responds with true, if the provided object is an instance of the provided function", function () {
                 expect(TypeCheck.isInstanceOf(new A(), A)).toBe(true);
             });
@@ -371,6 +372,34 @@ define([
             it("Throws exception, if there is no function provided", function () {
                 try {
                     TypeCheck.isInstanceOf({}, undefined);
+                } catch (e) {
+                    expect(e instanceof TypeError).toBe(true);
+                }
+            });
+        });
+        describe("TypeCheck.isEnumValue", function () {
+            var e = {
+                id: "123",
+                name: "test",
+                test: 123
+            };
+            it("Responds with true, if the provided value is an instance of the provided object", function () {
+                expect(TypeCheck.isEnumValue("123", e)).toBe(true);
+                expect(TypeCheck.isEnumValue(123, e)).toBe(true);
+            });
+            it("Responds with false, if the provided value is an instance of the provided object", function () {
+                expect(TypeCheck.isEnumValue("abc", e)).toBe(false);
+            });
+            it("Throws exception, if there is no object provided", function () {
+                try {
+                    TypeCheck.isEnumValue("132", undefined);
+                } catch (e) {
+                    expect(e instanceof TypeError).toBe(true);
+                }
+            });
+            it("Throws exception, if there is no string provided", function () {
+                try {
+                    TypeCheck.isEnumValue(undefined, e);
                 } catch (e) {
                     expect(e instanceof TypeError).toBe(true);
                 }

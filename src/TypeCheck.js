@@ -150,6 +150,28 @@ define([], function () {
                 throw new TypeError("parent is not a function");
             }
             return child instanceof parent;
+        },
+        /**
+         * Checks if the provided value is a value of the provided object which is used as an enum
+         * @param {String|Number} value - the value
+         * @param {Object} o - the object which shall be checked
+         * @returns {Boolean} - True if value is part of o, false otherwise
+         */
+        isEnumValue: function (value, o) {
+            if (!this.isString(value) && !this.isNumber(value)) {
+                throw new TypeError("value must be a String or a Number");
+            }
+            if (!this.isObject(o)) {
+                throw new TypeError("o is not an object");
+            }
+            var keys = Object.keys(o), length = keys.length, i, isValue = false;
+            for (i = 0; i < length; i++) {
+                if (o[keys[i]] === value) {
+                    isValue = true;
+                    break;
+                }
+            }
+            return isValue;
         }
     };
 });

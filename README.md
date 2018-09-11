@@ -18,6 +18,7 @@ TypeCheck.isDefined(undefined); //false
 TypeCheck.isArray([]); // true
 TypeCheck.isArrayTypeOf(["1","2", "3"], "number"); // true
 TypeCheck.isInstanceOf(new A(), A); // true
+TypeCheck.isEnumValue("test", { TEST: "test" }); // true
 ``` 
 
 - Use it with require.js 
@@ -145,6 +146,17 @@ Checks if child is an instance of parent
 
 **Returns**
 - `Boolean` -  True, if child is an instance of parent, false otherwise
+
+### isEnumValue(value, o) 
+
+Checks if the provided value is a value of the provided object which is used as an enum
+
+**Parameters**
+- **value**: `String|Number`, The value
+- **o**: `Object`, The object which shall be checked
+
+**Returns**
+- `Boolean` -  True if value is part of o, false otherwise
 
 ## Tests
 
