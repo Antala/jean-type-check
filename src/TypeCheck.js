@@ -97,11 +97,22 @@ define([], function () {
         /**
          * Checks if provided element is an array
          * @public 
-         * @memberOf TypeCheck
+         * @memberof TypeCheck
          * @param {Any} o - element to be checked
+         * @returns {Boolean} - true if o is an array, false otherwise
          */
         isArray: function (o) {
             return Array.isArray(o);
+        },
+        /**
+         * Check id provided element is an empty array
+         * @public
+         * @memberof TypeCheck
+         * @param {Any} o - element to be checked
+         * @returns {Boolean} - True if o is an empty array, false otherwise
+         */
+        isEmptyArray: function (o) {
+            return this.isArray(o) && (o.length === 0);
         },
         /**
          * Checks if all elements in this array have the same type

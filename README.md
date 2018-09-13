@@ -17,6 +17,7 @@ TypeCheck.isEmptyObject({}); // true
 TypeCheck.isFunction(function(){}); // true
 TypeCheck.isDefined(undefined); //false
 TypeCheck.isArray([]); // true
+TypeCheck.isEmptyArray([]); // true
 TypeCheck.isArrayTypeOf(["1","2", "3"], "number"); // true
 TypeCheck.areObjectsInstanceOf([new A(), new A(), new A()], A); // true
 TypeCheck.isInstanceOf(new A(), A); // true
@@ -124,6 +125,17 @@ Checks if provided element is an array
 
 **Returns**
 - `Boolean` - True, if element is an array, false otherwise
+
+### TypeCheck.isEmptyArray(o) 
+
+Checks if provided element is an empty array
+
+**Parameters**
+- **o**: `Any` - element to be checked
+
+**Returns**
+- `Boolean` - True, if element is an empty array, false otherwise
+
 
 ### TypeCheck.isArrayTypeOf(array, type) 
 

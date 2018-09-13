@@ -310,6 +310,46 @@ define([
                 expect(TypeCheck.isArray()).toBe(false);
             });
         });
+        describe("TypeCheck.isEmptyArray", function () {
+            var testString = "test-string",
+                testBoolean = true,
+                testNumber = 1,
+                testObject = {},
+                testArray = [],
+                testFunction = function () { },
+                testNull = null,
+                testUndefined;
+            it("Responds with true, if provided element is an empty array", function () {
+                expect(TypeCheck.isEmptyArray(testArray)).toBe(true);
+            });
+            it("Responds with true, if provided element is an array with content", function () {
+                expect(TypeCheck.isEmptyArray([1,2,3])).toBe(false);
+            });
+            it("Responds with false, if provided element is a number", function () {
+                expect(TypeCheck.isEmptyArray(testNumber)).toBe(false);
+            });
+            it("Responds with false, if provided element is a boolean", function () {
+                expect(TypeCheck.isEmptyArray(testBoolean)).toBe(false);
+            });
+            it("Responds with false, if provided element is a string", function () {
+                expect(TypeCheck.isEmptyArray(testString)).toBe(false);
+            });
+            it("Responds with false, if provided element is an object", function () {
+                expect(TypeCheck.isEmptyArray(testObject)).toBe(false);
+            });
+            it("Responds with false, if provided element is null", function () {
+                expect(TypeCheck.isEmptyArray(testNull)).toBe(false);
+            });
+            it("Responds with false, if provided element is a function", function () {
+                expect(TypeCheck.isEmptyArray(testFunction)).toBe(false);
+            });
+            it("Responds with false, if provided element is undefined", function () {
+                expect(TypeCheck.isEmptyArray(testUndefined)).toBe(false);
+            });
+            it("Responds with false, if nothing is provided", function () {
+                expect(TypeCheck.isEmptyArray()).toBe(false);
+            });
+        });
         describe("TypeCheck.isArrayTypeOf", function () {
             var stringArray = ["a", "b", "c"];
             var numberArray = [1, 2, 3];
