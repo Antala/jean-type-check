@@ -323,7 +323,7 @@ define([
                 expect(TypeCheck.isEmptyArray(testArray)).toBe(true);
             });
             it("Responds with true, if provided element is an array with content", function () {
-                expect(TypeCheck.isEmptyArray([1,2,3])).toBe(false);
+                expect(TypeCheck.isEmptyArray([1, 2, 3])).toBe(false);
             });
             it("Responds with false, if provided element is a number", function () {
                 expect(TypeCheck.isEmptyArray(testNumber)).toBe(false);
@@ -417,6 +417,49 @@ define([
             it("Throws exception, if no constructor is provided", function () {
                 try {
                     TypeCheck.areObjectsInstanceOf(aArray, 123);
+                } catch (e) {
+                    expect(e instanceof TypeError).toBe(true);
+                }
+            });
+        });
+        describe("TypeCheck.areObjectsInstancesOf", function () {
+            function A() { }
+            function B() { }
+            function C() { }
+            var aArray = [new A(), new A(), new A()];
+            var bArray = [new A(), new A(), new B()];
+            var cArray = [new A(), new B(), new C()];
+            var falseArray = [new A(), new A(), 3];
+            it("Responds with true, if provided objects are instance of A", function () {
+                expect(TypeCheck.areObjectsInstancesOf(aArray, [A])).toBe(true);
+            });
+            it("Responds with true, if provided objects are instance of A and B", function () {
+                expect(TypeCheck.areObjectsInstancesOf(bArray, [A, B])).toBe(true);
+            }); 
+            it("Responds with true, if provided objects are instance of A and B and C", function () {
+                expect(TypeCheck.areObjectsInstancesOf(cArray, [A, B, C])).toBe(true);
+            });
+            it("Responds with false, if a provided object is not an instance of provided constructors", function () {
+                expect(TypeCheck.areObjectsInstancesOf(cArray, [A])).toBe(false);
+                expect(TypeCheck.areObjectsInstancesOf(falseArray, [A, B])).toBe(false);
+            });
+            it("Throws exception, if no objects are provided", function () {
+                try {
+                    TypeCheck.areObjectsInstancesOf(undefined, A);
+                } catch (e) {
+                    expect(e instanceof TypeError).toBe(true);
+                }
+            });
+            it("Throws exception, if no constructors are provided", function () {
+                try {
+                    TypeCheck.areObjectsInstancesOf(aArray, undefined);
+                } catch (e) {
+                    expect(e instanceof TypeError).toBe(true);
+                }
+            });
+            it("Throws exception, if provided constructors are not functions", function () {
+                try {
+                    TypeCheck.areObjectsInstancesOf(aArray, [A, B, 123]);
                 } catch (e) {
                     expect(e instanceof TypeError).toBe(true);
                 }

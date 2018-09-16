@@ -1,1 +1,332 @@
-!function(r,n){"function"==typeof define&&define.amd?define([],n):"object"==typeof module&&module.exports?module.exports=n():(r.TypeCheck=r.TypeCheck||{},r.TypeCheck=n())}(this,function(){var r,n;return function(e){function t(r){for(var n=0,e=[];n<r.length;n++){var t=s.resolved[r[n]];t&&e.push(t)}return e}function i(){for(var r in s.unresolved){var n=s.unresolved[r],e=t(n.dependencies);o(r,n.factory,n.dependencies,e,!1)}}function o(r,n,e,t,i){t.length===e.length?s.resolved[r]=n.apply(n,t):i&&(s.unresolved[r]={dependencies:e,factory:n})}var s={resolved:{},unresolved:{}};n=function(r,n,e){return s.resolved[r]?void console.warn("There is already a module with id <"+r+"> defined. Therefore this module will be ignored"):"string"==typeof r&&Array.isArray(n)&&"function"==typeof e?(0===n.length?o(r,e,n,[],!1):o(r,e,n,t(n),!0),void i()):void console.warn("Passed arguments for module are invalid")},n.amd={},r=function(r,n){r=Array.isArray(r)?r:[r];var e=t(r);if(1===e.length&&!n)return e[0];if(e.length!==r.length||!n)throw new Error("Not all modules are resolved");n.apply(n,e)}}(),n("node_modules/jean-amd/dist/jean-amd",function(){}),n("src/TypeCheck",[],function(){return{isString:function(r){return"string"==typeof r},isBoolean:function(r){return"boolean"==typeof r},isNumber:function(r){return"number"==typeof r},isObject:function(r){var n=!1;if(this.isString(r)||this.isFunction(r))return!1;if(this.isEmptyObject(r))return!0;for(var e in r)if(r.hasOwnProperty(e)){n=!0;break}return n},isEmptyObject:function(r){var n=!0;if(!this.isDefined(r)||this.isBoolean(r)||this.isFunction(r)||this.isNumber(r)||this.isString(r)||Array.isArray(r))return!1;for(var e in r)if(r.hasOwnProperty(e)){n=!1;break}return n},isFunction:function(r){return"function"==typeof r},isDefined:function(r){return void 0!==r&&null!=r},isArray:function(r){return Array.isArray(r)},isEmptyArray:function(r){return this.isArray(r)&&0===r.length},isArrayTypeOf:function(r,n){var e=!0;if(!this.isString(n))throw new TypeError("options.type is not a string");if(!Array.isArray(r))throw new TypeError("options.array is not an array");0===r.length&&(e=!1);for(var t=0,i=r.length;t<i;t++){if(typeof r[t]!==n){e=!1;break}}return e},areObjectsInstanceOf:function(r,n){if(!this.isArray(r))throw new TypeError("array is not an array");if(!this.isFunction(n))throw new TypeError("constructor is not a function");var e,t,i=r.length,o=!0;for(e=0;e<i;e++)if(t=r[e],!this.isObject(t)||!this.isInstanceOf(t,n)){o=!1;break}return o},isInstanceOf:function(r,n){if(!this.isObject(r))throw new TypeError("child is not an object");if(!this.isFunction(n))throw new TypeError("parent is not a function");return r instanceof n},isEnumValue:function(r,n){if(!this.isString(r)&&!this.isNumber(r))throw new TypeError("value must be a String or a Number");if(!this.isObject(n))throw new TypeError("o is not an object");var e,t=Object.keys(n),i=t.length,o=!1;for(e=0;e<i;e++)if(n[t[e]]===r){o=!0;break}return o}}}),r("src/TypeCheck")});
+(function (root, factory) { 
+	 if (typeof define === 'function' && define.amd) { 
+	 	 define([], factory); 
+	} else if(typeof module === 'object' && module.exports) { 
+		 module.exports = factory(); 
+ 	} else { 
+	 	root.TypeCheck = root.TypeCheck || {}; 
+	 	root.TypeCheck = factory();
+	}
+}(this, function() {
+var require, define;
+(function (window) {
+    var modules = { resolved: {}, unresolved: {} };
+    function getResolvedModules(dependencies) {
+        for (var i = 0, resolvedModules = []; i < dependencies.length; i++) {
+            var resolvedModule = modules.resolved[dependencies[i]];
+            if (resolvedModule) {
+                resolvedModules.push(resolvedModule);
+            }
+        }
+        return resolvedModules;
+    }
+    function checkUnresolved() {
+        for (var id in modules.unresolved) {
+            var module = modules.unresolved[id];
+            var resolvedModules = getResolvedModules(module.dependencies);
+            resolve(id, module.factory, module.dependencies, resolvedModules, false);
+        }
+    }
+    function resolve(id, factory, dependencies, resolvedModules, saveUnresolved) {
+        if (resolvedModules.length === dependencies.length) {
+            modules.resolved[id] = factory.apply(factory, resolvedModules);
+        } else if (saveUnresolved) {
+            modules.unresolved[id] = {
+                dependencies: dependencies,
+                factory: factory
+            }
+        }
+    }
+    define = function (id, dependencies, factory) {
+        if (modules.resolved[id]) {
+            console.warn("There is already a module with id <" + id + "> defined. Therefore this module will be ignored");
+            return;
+        } else if ((typeof id !== "string") || (!Array.isArray(dependencies)) || (typeof factory !== "function")) {
+            console.warn("Passed arguments for module are invalid");
+            return;
+        }
+        if (dependencies.length === 0) {
+            resolve(id, factory, dependencies, [], false);
+        } else {
+            resolve(id, factory, dependencies, getResolvedModules(dependencies), true);
+        }
+        checkUnresolved();
+    };
+    define.amd = {}; 
+    require = function (dependencies, factory) {
+        dependencies = Array.isArray(dependencies) ? dependencies : [dependencies];
+        var resolvedModules = getResolvedModules(dependencies);
+        if(resolvedModules.length === 1 && !factory){
+            return resolvedModules[0];
+        }
+        if (resolvedModules.length === dependencies.length && factory) {
+            factory.apply(factory, resolvedModules);
+        } else {
+            throw new Error("Not all modules are resolved");
+        }
+    };
+})();
+define("node_modules/jean-amd/dist/jean-amd", function(){});
+
+define('src/TypeCheck',[], function () {
+    return {
+        /**
+         * Checks if provided element type is string
+         * @public
+         * @memberof TypeCheck
+         * @param {Any} o - element to be checked
+         * @returns {Boolean} True, if element type is string, false otherwise
+         */
+        isString: function (o) {
+            return (typeof o === "string") ? true : false;
+        },
+        /** 
+         * Checks if provided element type is boolean
+         * @public
+         * @memberof TypeCheck
+         * @param {Any} o - element to be checked
+         * @returns {Boolean} True, if element type is boolean, false otherwise
+         */
+        isBoolean: function (o) {
+            return (typeof o === "boolean") ? true : false;
+        },
+        /**
+         * Checks if provided element type is boolean
+         * @public
+         * @memberof TypeCheck
+         * @param {Any} o - element to be checked
+         * @returns {Boolean} True, if element type is boolean, false otherwise
+         */
+        isNumber: function (o) {
+            return (typeof o === "number") ? true : false;
+        },
+        /**
+         * Checks if provided element is an object
+         * @public
+         * @memberof TypeCheck
+         * @param {Any} o - element to be checked
+         * @returns {Boolean} True, if element is empty, false otherwise
+         */
+        isObject: function (o) {
+            var isObject = false;
+            if (this.isString(o) || this.isFunction(o)) {
+                return false;
+            }
+            if (this.isEmptyObject(o)) {
+                return true;
+            }
+            for (var k in o) {
+                if (o.hasOwnProperty(k)) {
+                    isObject = true;
+                    break;
+                }
+            }
+            return isObject;
+        },
+        /**
+         * Checks if provided element is an empty object
+         * @public
+         * @memberof TypeCheck
+         * @param {Any} o - element to be checked
+         * @returns {Boolean} True, if element is empty, false otherwise
+         */
+        isEmptyObject: function (o) {
+            var isEmpty = true;
+            if (!this.isDefined(o) || this.isBoolean(o) || this.isFunction(o) ||
+                this.isNumber(o) || this.isString(o) || Array.isArray(o)) {
+                return false;
+            }
+            for (var k in o) {
+                if (o.hasOwnProperty(k)) {
+                    isEmpty = false;
+                    break;
+                }
+            }
+            return isEmpty;
+        },
+        /**
+        * Checks if provided element is a function
+        * @public
+        * @memberof TypeCheck
+        * @param {Any} o - element to be checked
+        * @returns {Boolean} True, if element is a function, false otherwise
+        */
+        isFunction: function (o) {
+            return (typeof o === "function") ? true : false;
+        },
+        /**
+         * Checks if provided element is defined
+         * @public
+         * @memberof TypeCheck
+         * @param {Any} o - element to be checked
+         * @returns {Boolean} True, if element is defined, false otherwise
+         */
+        isDefined: function (o) {
+            return (o !== undefined && o != null);
+        },
+        /**
+         * Checks if provided element is an array
+         * @public 
+         * @memberof TypeCheck
+         * @param {Any} o - element to be checked
+         * @returns {Boolean} - true if o is an array, false otherwise
+         */
+        isArray: function (o) {
+            return Array.isArray(o);
+        },
+        /**
+         * Check id provided element is an empty array
+         * @public
+         * @memberof TypeCheck
+         * @param {Any} o - element to be checked
+         * @returns {Boolean} - True if o is an empty array, false otherwise
+         */
+        isEmptyArray: function (o) {
+            return this.isArray(o) && (o.length === 0);
+        },
+        /**
+         * Checks if all elements in this array have the same type
+         * @public
+         * @memberof TypeCheck
+         * @throws {TypeError} - If options.type is not a string
+         * @throws {TypeError} - If options.array is not a string
+         * @param {Any[]} array - Array to be checked
+         * @param {String} type - Type of elements in this array. Valid values are all which matches 
+         *                        to the typeof operator
+         * @returns {Boolean} - true if all elements in the array have the same type, false otherwise
+         */
+        isArrayTypeOf: function (array, type) {
+            var isTypeOf = true;
+            if (!this.isString(type)) {
+                throw new TypeError("options.type is not a string");
+            }
+            if (!Array.isArray(array)) {
+                throw new TypeError("options.array is not an array");
+            }
+            if (array.length === 0) {
+                isTypeOf = false;
+            }
+            for (var i = 0, length = array.length; i < length; i++) {
+                var o = array[i];
+                if (typeof o !== type) {
+                    isTypeOf = false;
+                    break;
+                }
+            }
+            return isTypeOf;
+        },
+        /**
+          * Checks if all objects within array have the same instance
+          * @public
+          * @memberof TypeCheck
+          * @throws {TypeError} - If array is not an array
+          * @throws {TypeError} - If constructor is not a function
+          * @param {Object[]} array - The array which objects shall be checked
+          * @param {Function} fn - the constructor function
+          * @returns {Boolean} - True if all elements have the same instance, false otherwise
+          */
+        areObjectsInstanceOf: function (array, fn) {
+            if (!this.isArray(array)) {
+                throw new TypeError("array is not an array");
+            }
+            if (!this.isFunction(fn)) {
+                throw new TypeError("fn is not a function");
+            }
+            var i, o, length = array.length, result = true;
+            for (i = 0; i < length; i++) {
+                o = array[i];
+                if (!this.isObject(o) || !this.isInstanceOf(o, fn)) {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        },
+        /**
+         * Checks if the objects have are instances of the provided constructors
+         * @public
+         * @memberof TypeCheck
+         * @throws {TypeError} - If array is not an array
+         * @throws {TypeError} - If constructors is not an array
+         * @param {Object[]} objects - The array which objects shall be checked
+         * @param {Function[]} constructors - An array of constructor functions
+         * @returns {Boolean} - True if all elements have the same instance, false otherwise
+         */
+        areObjectsInstancesOf: function (objects, constructors) {
+            var i, j, o, length = objects.length, constructorLength = constructors.length, result = true, noConstructorMatched;
+            if (!this.isArray(objects)) {
+                throw new TypeError("objects is not an array");
+            }
+            if (!this.isArray(constructors)) {
+                throw new TypeError("constructors is not an array");
+            }
+            if (!this.isArrayTypeOf(constructors, "function")) {
+                throw new TypeError("constructors is not an array of constructor functions");
+            }
+            for (i = 0; i < length; i++) {
+                o = objects[i];
+                noConstructorMatched = true;
+                for (j = 0; j < constructorLength; j++) {
+                    if(!this.isObject(o)){
+                        break;
+                    }
+                    if (this.isInstanceOf(o, constructors[j])) {
+                        noConstructorMatched = false;
+                        break;
+                    }
+                }
+                if (noConstructorMatched === true) {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        },
+        /**
+         * Checks if child is an instance of parent
+         * @public
+         * @memberof TypeCheck
+         * @throws {TypeError} - If child is not an object
+         * @throws {TypeError} - If parent is not a function
+         * @param {Object} child - The object which shall be checked
+         * @param {Function} parent - The function which shall be the constructor
+         * @returns {Boolean} - True if child is an instance of parent, false otherwise
+         */
+        isInstanceOf: function (child, parent) {
+            if (!this.isObject(child)) {
+                throw new TypeError("child is not an object");
+            }
+            if (!this.isFunction(parent)) {
+                throw new TypeError("parent is not a function");
+            }
+            return child instanceof parent;
+        },
+        /**
+         * Checks if the provided value is a value of the provided object which is used as an enum
+         * @throws {TypeError} - If value is not a string or a number
+         * @throws {TypeError} - If o is not an object
+         * @param {String|Number} value - the value
+         * @param {Object} o - the object which shall be checked
+         * @returns {Boolean} - True if value is part of o, false otherwise
+         */
+        isEnumValue: function (value, o) {
+            if (!this.isString(value) && !this.isNumber(value)) {
+                throw new TypeError("value must be a String or a Number");
+            }
+            if (!this.isObject(o)) {
+                throw new TypeError("o is not an object");
+            }
+            var keys = Object.keys(o), length = keys.length, i, isValue = false;
+            for (i = 0; i < length; i++) {
+                if (o[keys[i]] === value) {
+                    isValue = true;
+                    break;
+                }
+            }
+            return isValue;
+        }
+    };
+});
+
+ 	 return require('src/TypeCheck'); 
+}));

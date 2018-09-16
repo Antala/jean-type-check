@@ -146,26 +146,66 @@ define([], function () {
             return isTypeOf;
         },
         /**
-         * Checks if all objects within array have the same instance
-         * @public
-         * @memberof TypeCheck
-         * @throws {TypeError} - If array is not an array
-         * @throws {TypeError} - If constructor is not a function
-         * @param {Object[]} array - The array which objects shall be checked
-         * @param {Function} constructor - the constructor function
-         * @returns {Boolean} - True if all elements have the same instance, false otherwise
-         */
-        areObjectsInstanceOf: function (array, constructor) {
+          * Checks if all objects within array have the same instance
+          * @public
+          * @memberof TypeCheck
+          * @throws {TypeError} - If array is not an array
+          * @throws {TypeError} - If constructor is not a function
+          * @param {Object[]} array - The array which objects shall be checked
+          * @param {Function} fn - the constructor function
+          * @returns {Boolean} - True if all elements have the same instance, false otherwise
+          */
+        areObjectsInstanceOf: function (array, fn) {
             if (!this.isArray(array)) {
                 throw new TypeError("array is not an array");
             }
-            if (!this.isFunction(constructor)) {
-                throw new TypeError("constructor is not a function");
+            if (!this.isFunction(fn)) {
+                throw new TypeError("fn is not a function");
             }
             var i, o, length = array.length, result = true;
             for (i = 0; i < length; i++) {
                 o = array[i];
-                if (!this.isObject(o) || !this.isInstanceOf(o, constructor)) {
+                if (!this.isObject(o) || !this.isInstanceOf(o, fn)) {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        },
+        /**
+         * Checks if the objects have are instances of the provided constructors
+         * @public
+         * @memberof TypeCheck
+         * @throws {TypeError} - If array is not an array
+         * @throws {TypeError} - If constructors is not an array
+         * @param {Object[]} objects - The array which objects shall be checked
+         * @param {Function[]} constructors - An array of constructor functions
+         * @returns {Boolean} - True if all elements have the same instance, false otherwise
+         */
+        areObjectsInstancesOf: function (objects, constructors) {
+            var i, j, o, length = objects.length, constructorLength = constructors.length, result = true, noConstructorMatched;
+            if (!this.isArray(objects)) {
+                throw new TypeError("objects is not an array");
+            }
+            if (!this.isArray(constructors)) {
+                throw new TypeError("constructors is not an array");
+            }
+            if (!this.isArrayTypeOf(constructors, "function")) {
+                throw new TypeError("constructors is not an array of constructor functions");
+            }
+            for (i = 0; i < length; i++) {
+                o = objects[i];
+                noConstructorMatched = true;
+                for (j = 0; j < constructorLength; j++) {
+                    if(!this.isObject(o)){
+                        break;
+                    }
+                    if (this.isInstanceOf(o, constructors[j])) {
+                        noConstructorMatched = false;
+                        break;
+                    }
+                }
+                if (noConstructorMatched === true) {
                     result = false;
                     break;
                 }

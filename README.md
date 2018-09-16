@@ -149,16 +149,27 @@ Checks if all elements in this array have the same type
 **Returns**
 - `Boolean` -  True, if all elements have the same type, false otherwise
 
-### TypeCheck.areObjectsInstanceOf(array, constructor) 
+### TypeCheck.areObjectsInstanceOf(array, fn) 
 
 Checks if all objects within array have the same instance
 
 **Parameters**
 - **array**: `Object[]`, The array which objects shall be checked
-- **constructor**: `Function`, The constructor function
+- **fn**: `Function`, The constructor function
 
 **Returns**
 - `Boolean` -  True, if all elements have the same instance, false otherwise
+
+### TypeCheck.areObjectsInstancesOf(objects, constructors) 
+
+Checks if the objects have are instances of the provided constructors
+
+**Parameters**
+- **objects**: `Object[]`, The array which objects shall be checked
+- **constructors**: `Function[]`, The constructor functions
+
+**Returns**
+- `Boolean` -  True, if the elements are instances of the provided constructors, false otherwise
 
 ### TypeCheck.isInstanceOf(child, parent) 
 
