@@ -1,6 +1,6 @@
 {
   "name": "jean-type-check",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Provides functionality for type checking",
   "main": "dist/jean-type-check.js",
   "scripts": {
@@ -22,5 +22,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/je-an/jean-type-check.git"
+  },
+  "devDependencies": {
+    "jean-performance": "^1.0.2"
   }
 }

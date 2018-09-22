@@ -38,20 +38,7 @@ define([], function () {
          * @returns {Boolean} True, if element is empty, false otherwise
          */
         isObject: function (o) {
-            var isObject = false;
-            if (this.isString(o) || this.isFunction(o)) {
-                return false;
-            }
-            if (this.isEmptyObject(o)) {
-                return true;
-            }
-            for (var k in o) {
-                if (o.hasOwnProperty(k)) {
-                    isObject = true;
-                    break;
-                }
-            }
-            return isObject;
+            return !this.isArray(o) && o !== null && typeof o === 'object';
         },
         /**
          * Checks if provided element is an empty object
@@ -61,16 +48,9 @@ define([], function () {
          * @returns {Boolean} True, if element is empty, false otherwise
          */
         isEmptyObject: function (o) {
-            var isEmpty = true;
-            if (!this.isDefined(o) || this.isBoolean(o) || this.isFunction(o) ||
-                this.isNumber(o) || this.isString(o) || Array.isArray(o)) {
-                return false;
-            }
-            for (var k in o) {
-                if (o.hasOwnProperty(k)) {
-                    isEmpty = false;
-                    break;
-                }
+            var isEmpty = false;
+            if (this.isObject(o) && Object.keys(o).length === 0) {
+                isEmpty = true;
             }
             return isEmpty;
         },
@@ -197,7 +177,7 @@ define([], function () {
                 o = objects[i];
                 noConstructorMatched = true;
                 for (j = 0; j < constructorLength; j++) {
-                    if(!this.isObject(o)){
+                    if (!this.isObject(o)) {
                         break;
                     }
                     if (this.isInstanceOf(o, constructors[j])) {

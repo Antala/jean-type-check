@@ -1,7 +1,8 @@
 // jscs:disable
 define([
-    "TypeCheck"
-], function (TypeCheck) {
+    "TypeCheck",
+    "Performance"
+], function (TypeCheck, Performance) {
     describe('TypeCheck.spec.js', function () {
         describe("TypeCheck.isString", function () {
             var testString = "test-string",
@@ -435,7 +436,7 @@ define([
             });
             it("Responds with true, if provided objects are instance of A and B", function () {
                 expect(TypeCheck.areObjectsInstancesOf(bArray, [A, B])).toBe(true);
-            }); 
+            });
             it("Responds with true, if provided objects are instance of A and B and C", function () {
                 expect(TypeCheck.areObjectsInstancesOf(cArray, [A, B, C])).toBe(true);
             });
