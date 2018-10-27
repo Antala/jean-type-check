@@ -499,19 +499,18 @@ define([
                 expect(TypeCheck.isEnumValue("123", e)).toBe(true);
                 expect(TypeCheck.isEnumValue(123, e)).toBe(true);
             });
-            it("Responds with false, if the provided value is an instance of the provided object", function () {
+            it("Responds with false, if the provided value is not an instance of the provided object", function () {
                 expect(TypeCheck.isEnumValue("abc", e)).toBe(false);
+            });
+            it("Responds with false, if the provided value is undefined", function () {
+                expect(TypeCheck.isEnumValue(undefined, e)).toBe(false);
+            });
+            it("Responds with false, if the provided value is null", function () {
+                expect(TypeCheck.isEnumValue(null, e)).toBe(false);
             });
             it("Throws exception, if there is no object provided", function () {
                 try {
                     TypeCheck.isEnumValue("132", undefined);
-                } catch (e) {
-                    expect(e instanceof TypeError).toBe(true);
-                }
-            });
-            it("Throws exception, if there is no string provided", function () {
-                try {
-                    TypeCheck.isEnumValue(undefined, e);
                 } catch (e) {
                     expect(e instanceof TypeError).toBe(true);
                 }

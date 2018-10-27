@@ -220,6 +220,9 @@ define([], function () {
          * @returns {Boolean} - True if value is part of o, false otherwise
          */
         isEnumValue: function (value, o) {
+            if (!this.isDefined(value)) {
+                return false;
+            }
             if (!this.isString(value) && !this.isNumber(value)) {
                 throw new TypeError("value must be a String or a Number");
             }
