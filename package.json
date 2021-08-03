@@ -16,12 +16,12 @@
   "author": "Jeremias Andris",
   "license": "MIT",
   "dependencies": {
-    "jean-amd": "1.0.1",
-    "jean-failure": "^1.0.1"
+    "jean-amd": "Antala/jean-amd",
+    "jean-failure": "Antala/jean-failure"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/je-an/jean-type-check.git"
+    "url": "https://github.com/Antala/jean-type-check.git"
   },
   "devDependencies": {
     "jean-performance": "^1.0.2"
